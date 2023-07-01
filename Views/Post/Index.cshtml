@@ -1,0 +1,33 @@
+@model IEnumerable<BlogApp.Models.Post>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Posts</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="row">
+    @foreach(var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <img src="~/images/@item.PostImage" class="card-img-top" alt="Image not found"/>
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Content)</p>
+                    <p class="card-text">Published at: @Html.DisplayFor(modelItem => item.PublishedAt)</p>
+                    <p class="card-text">User: <a href="@Url.Action("Details", "User", new { id = item.User.Id })">@Html.DisplayFor(modelItem => item.User.UserName)</a></p>
+                    <p class="card-text">Category: @Html.DisplayFor(modelItem => item.Category.Name)</p>
+                    <a href="@Url.Action("Edit", new { id = item.PostId })" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Action("Details", new { id = item.PostId })" class="btn btn-secondary">Details</a>
+                    <a href="@Url.Action("Delete", new { id = item.PostId })" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

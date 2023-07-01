@@ -1,0 +1,4 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.defaultFormatter": "kreativ-software.csharpextensions"
+}

@@ -1,0 +1,39 @@
+@model BlogApp.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "User Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="text-align: center;">User Details</h1>
+
+<div class="d-flex justify-content-center">
+    <div class="col-md-8"> <!-- Increased the column width to make the card larger -->
+        <div class="card-body">
+            <dl>
+                <dt class="col-sm-3">Name</dt>
+                <dd class="col-sm-9">@Model.UserName</dd>
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Model.Email</dd>
+            </dl>
+            
+            <h2>Posts</h2> <!-- Changed <p> to <h2> for better heading hierarchy -->
+            
+            <div class="row">
+                @foreach (var post in Model.Posts)
+                {
+                    <div class="col-md-6"> <!-- Adjusted the column width to display two cards per row -->
+                        <div class="card mb-4">
+                            <img src="~/images/@post.PostImage" class="card-img-top" alt="Image not found"/>
+                            <div class="card-body">
+                                <h5 class="card-title">@Html.DisplayFor(modelpost => post.Title)</h5>
+                                <p class="card-text">@Html.DisplayFor(modelpost => post.Content)</p>
+                                <p class="card-text">Category: @Html.DisplayFor(modelpost => post.Category.Name)</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

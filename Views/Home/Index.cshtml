@@ -1,0 +1,69 @@
+﻿@model IEnumerable<BlogApp.Models.Post>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div id="carouselExampleDark" class="carousel carousel slide"  data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item drk active" data-bs-interval="10000">
+      <img src="~/images/wallpaper.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>"The only way to do great work is to love what you do." </p>
+        <h6>- Steve Jobs</h6>
+      </div>
+    </div>
+    <div class="carousel-item drk" data-bs-interval="2000">
+      <img src="~/images/2.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <p>"The journey of a thousand miles begins with a single step." </p>
+                <h6>- Lao Tzu</h6>
+      </div>
+    </div>
+    <div class="carousel-item drk">
+      <img src="~/images/wallpaper.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+      <p>"Don't watch the clock; do what it does. Keep going." </p>
+      <h6>- Sam Levenson</h6>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+  
+  <div class="mt-5">
+    <h2> Featured Contents</h2>
+    
+    <div class="featured-content">
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                  
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Content)</p>
+                    <p class="card-text">Published at: @Html.DisplayFor(modelItem => item.PublishedAt)</p>
+                    <p class="card-text">User: <a href="@Url.Action("Details", "User", new { id = item.User.Id })">@Html.DisplayFor(modelItem => item.User.UserName)</a></p>
+                    <p class="card-text">Category: @Html.DisplayFor(modelItem => item.Category.Name)</p>
+                
+                </div>
+            </div>
+        </div>
+    }
+</div>
+    </div>
+  </div>
+</div>
