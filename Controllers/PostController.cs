@@ -71,13 +71,14 @@ namespace BlogApp.Views
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PostViewModel post)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user's userId
             string uniqueFileName = UploadedFile(post);
             Post newPost = new()
             {
                 Title = post.Title,
                 Content = post.Content,
                 PostImage = uniqueFileName,
-                UserId = post.UserId,
+                UserId = userId,
                 CategoryId = post.CategoryId,
                 PublishedAt = DateTime.Now,
 
@@ -109,7 +110,6 @@ namespace BlogApp.Views
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", post.CategoryId);
-            ViewData["UserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", post.UserId);
             return View(post);
         }
 
@@ -126,7 +126,7 @@ namespace BlogApp.Views
             var user = await _userManager.FindByIdAsync(userId);
             if (post.UserId != user.Id)
             {
-                return Unauthorized();
+                return Forbid();
             }
             // if (currentUser.Identity.Name == post.User.Id)
             if (id != post.PostId)
@@ -155,7 +155,7 @@ namespace BlogApp.Views
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", post.CategoryId);
-            ViewData["UserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", post.UserId);
+            // ViewData["UserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", post.UserId);
             return View(post);
         }
 
