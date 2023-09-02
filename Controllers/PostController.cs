@@ -96,6 +96,7 @@ namespace BlogApp.Views
         }
 
         // GET: Post/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
 
@@ -117,6 +118,7 @@ namespace BlogApp.Views
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PostId,Title,Content,PublishedAt,UserId,CategoryId")] Post post)
         {
@@ -160,6 +162,7 @@ namespace BlogApp.Views
         }
 
         // GET: Post/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Posts == null)
@@ -181,6 +184,7 @@ namespace BlogApp.Views
 
         // POST: Post/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
